@@ -12,8 +12,8 @@ import {
   getTokenBalances,
   prepareSweepTransaction,
   validateSweepParams,
-} from './contractUtils';
-import { CHAIN_CONFIG, SUPPORTED_CHAIN_IDS } from '../config/chains';
+} from './contractUtils.js';
+import { CHAIN_CONFIG, SUPPORTED_CHAIN_IDS } from '../config/chains.js';
 
 dotenv.config();
 

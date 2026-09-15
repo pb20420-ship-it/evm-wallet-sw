@@ -1,6 +1,6 @@
 import { Contract, JsonRpcProvider, formatUnits, parseUnits, ZeroAddress } from 'ethers';
-import { WALLET_SWEEPER_ABI, ERC20_ABI } from '../config/contractABI';
-import { CHAIN_CONFIG, SUPPORTED_CHAIN_IDS } from '../config/chains';
+import { WALLET_SWEEPER_ABI, ERC20_ABI } from '../config/contractABI.js';
+import { CHAIN_CONFIG, SUPPORTED_CHAIN_IDS } from '../config/chains.js';
 
 // Get contract address from environment
 export function getContractAddress(chainId: number): string | null {

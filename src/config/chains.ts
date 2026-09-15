@@ -53,11 +53,6 @@ export const CHAIN_CONFIG: Record<number, { name: string; symbol: string; blockE
     symbol: 'FTM',
     blockExplorer: 'https://ftmscan.com',
   },
-  1088: {
-    name: 'Metis',
-    symbol: 'METIS',
-    blockExplorer: 'https://explorer.metis.io',
-  },
   42220: {
     name: 'Celo',
     symbol: 'CELO',
