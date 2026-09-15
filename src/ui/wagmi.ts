@@ -16,9 +16,8 @@ import {
   zkSync,
   linea,
   scroll,
-  // Additional chains
-  defineChain,
 } from 'wagmi/chains';
+import { defineChain } from 'viem';
 
 // Define chains not in wagmi by default
 const harmony = defineChain({
