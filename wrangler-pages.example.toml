@@ -1,0 +1,45 @@
+/**
+ * Cloudflare Pages Configuration (wrangler.toml for Pages)
+ * 
+ * This file configures your Cloudflare Pages deployment.
+ * Add this to your project root if deploying via Pages.
+ */
+
+name = "evm-wallet-sw"
+type = "javascript"
+compatibility_date = "2024-09-16"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = "."
+watch_paths = ["src/**/*.ts", "src/**/*.tsx"]
+output_dir = "dist-ui"
+
+# Build environment
+[build.env]
+NODE_ENV = "production"
+
+# Functions configuration
+[functions]
+directory = "functions"
+
+# Dev environment
+[env.development]
+vars = { ENVIRONMENT = "development" }
+
+[env.development.build.env]
+NODE_ENV = "development"
+
+# Production environment (default)
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+# Environment variables for production
+[env.production.vars]
+CORS_ORIGIN = "https://yourdomain.com"
+NODE_ENV = "production"
+
+# Triggers (optional - for scheduled functions)
+# [[triggers.schedules]]
+# crons = ["0 0 * * *"]
