@@ -3,26 +3,29 @@ import { useAccount } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import WalletSweeper from './components/WalletSweeper';
 import Header from './components/Header';
+import { supportedChains } from './wagmi';
 
 function App() {
   const { address, isConnected } = useAccount();
   const [mounted, setMounted] = useState(false);
-  const [supportedChains, setSupportedChains] = useState<any[]>([]);
+  const [chainCount, setChainCount] = useState(supportedChains.length);
 
   useEffect(() => {
     setMounted(true);
-    // Fetch supported chains from backend
     fetchSupportedChains();
   }, []);
 
   const fetchSupportedChains = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/chains');
+      const response = await fetch('/api/chains');
       if (response.ok) {
         const chains = await response.json();
-        setSupportedChains(chains);
+        if (Array.isArray(chains) && chains.length > 0) {
+          setChainCount(chains.length);
+        }
       }
     } catch (error) {
+      // Keep fallback from wagmi config
       console.error('Failed to fetch supported chains:', error);
     }
   };
@@ -39,7 +42,7 @@ function App() {
               <div className="mb-4">
                 <h1 className="text-5xl font-bold text-white mb-2">🌊 EVM Wallet Sweeper</h1>
                 <p className="text-xl text-gray-300">
-                  Consolidate all your tokens and native coins across {supportedChains.length} EVM chains
+                  Consolidate all your tokens and native coins across {chainCount} EVM chains
                 </p>
               </div>
               <h2 className="text-3xl font-bold text-white mb-4">Connect Your Wallet</h2>
@@ -54,7 +57,7 @@ function App() {
               <div className="bg-slate-800/50 backdrop-blur border border-purple-500/20 rounded-lg p-4">
                 <p className="text-2xl mb-2">🔗</p>
                 <h3 className="font-semibold text-white mb-2">Multi-Chain</h3>
-                <p className="text-sm text-gray-300">Sweep from {supportedChains.length} EVM-compatible chains</p>
+                <p className="text-sm text-gray-300">Sweep from {chainCount} EVM-compatible chains</p>
               </div>
               <div className="bg-slate-800/50 backdrop-blur border border-purple-500/20 rounded-lg p-4">
                 <p className="text-2xl mb-2">💰</p>
@@ -88,7 +91,7 @@ function App() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div>
               <p className="text-sm font-semibold text-gray-300 mb-2">Supported Chains</p>
-              <p className="text-xs text-gray-400">{supportedChains.length} EVM networks</p>
+              <p className="text-xs text-gray-400">{chainCount} EVM networks</p>
             </div>
             <div>
               <p className="text-sm font-semibold text-gray-300 mb-2">Features</p>
