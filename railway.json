@@ -5,7 +5,7 @@
     "buildCommand": "npm run build:all"
   },
   "deploy": {
-    "startCommand": "npm run server:prod",
+    "startCommand": "node dist/server/index.js",
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 30
   }

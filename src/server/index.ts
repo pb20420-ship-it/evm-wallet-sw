@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { JsonRpcProvider, formatEther } from 'ethers';
 import axios from 'axios';
@@ -251,20 +252,19 @@ app.get('/api/chains', (req, res) => {
   res.json(chains);
 });
 
-// Serve static frontend files in production
-if (process.env.NODE_ENV === 'production') {
-  const frontendPath = path.join(__dirname, '../../dist-ui');
+// Serve built frontend when present (Railway image includes dist-ui)
+const frontendPath = path.join(__dirname, '../../dist-ui');
+if (fs.existsSync(frontendPath)) {
   app.use(express.static(frontendPath));
-  
-  // Fallback to index.html for client-side routing
-  app.get('*', (req, res) => {
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
     res.sendFile(path.join(frontendPath, 'index.html'));
   });
 }
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📊 Supported chains: ${SUPPORTED_CHAIN_IDS.join(', ')}`);
-  console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+const PORT = Number(process.env.PORT) || 3001;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on 0.0.0.0:${PORT}`);
+  console.log(`Supported chains: ${SUPPORTED_CHAIN_IDS.join(', ')}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'production'}`);
 });
