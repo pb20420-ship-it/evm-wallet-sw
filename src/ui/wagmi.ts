@@ -298,7 +298,7 @@ export const supportedChains = [
 export const getConfig = () =>
   getDefaultConfig({
     appName: 'EVM Wallet Sweeper',
-    projectId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || 'YOUR_PROJECT_ID',
+    projectId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID || 'f17ceea33bffc28ed867fadb73268b18',
     chains: supportedChains as any,
     ssr: false,
   });
