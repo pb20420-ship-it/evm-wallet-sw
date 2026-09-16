@@ -1,0 +1,13 @@
+name = "evm-wallet-sw"
+compatibility_date = "2024-09-16"
+compatibility_flags = ["nodejs_compat"]
+
+# Serve the Vite-built frontend as static assets
+[assets]
+directory = "./dist-ui"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+# Optional: run npm run build before deploy (Cloudflare CI already does this)
+# [build]
+# command = "npm run build"
